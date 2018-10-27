@@ -1,3 +1,5 @@
+package com.getlosthere.nyethack
+
 fun main(args: Array<String>) {
     var swordsJuggling: Int? = null
 
@@ -17,9 +19,9 @@ fun main(args: Array<String>) {
 }
 
 fun proficiencyCheck(swordsJuggling: Int?) {
-//    swordsJuggling ?: throw UnskilledSwordJugglerException()
-    checkNotNull(swordsJuggling) { "Player cannot juggle swords" }
+//    swordsJuggling ?: throw com.getlosthere.nyethack.UnskilledSwordJugglerException()
+    checkNotNull(swordsJuggling) { "com.getlosthere.nyethack.Player cannot juggle swords" }
 }
 
 class UnskilledSwordJugglerException() :
-        IllegalStateException("Player cannot juggle swords")
+        IllegalStateException("com.getlosthere.nyethack.Player cannot juggle swords")

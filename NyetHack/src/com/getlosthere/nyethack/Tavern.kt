@@ -1,5 +1,6 @@
+package com.getlosthere.nyethack
+
 import java.io.File
-import kotlin.math.roundToInt
 
 const val TAVERN_NAME = "Jojo's Drinks and Dregs"
 
