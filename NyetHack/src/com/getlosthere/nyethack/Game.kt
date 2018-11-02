@@ -1,9 +1,14 @@
 package com.getlosthere.nyethack
 
 fun main(args: Array<String>) {
-    val player = Player()
+//    val player = Player("madigral",
+//            89,
+//            true,
+//            false)
 
-    // com.getlosthere.nyethack.Player Status
+    val player = Player("madigral", healthPoints = 50, isBlessed = true, isImmortal = false)
+
+    // player Status
     printPlayerStatus(player)
 
     // player.castFireball(5)

@@ -1,15 +1,31 @@
 package com.getlosthere.nyethack
 
-class Player {
-    var name = "madigral"
-        get() = field.capitalize()
+import java.io.File
+
+class Player (_name: String,
+              var healthPoints: Int = 100,
+              val isBlessed: Boolean,
+              private val isImmortal: Boolean) {
+    var name = _name
+        get() = "${field.capitalize()} of $hometown"
         private set(value) {
             field = value.trim()
         }
 
-    var healthPoints = 89
-    val isBlessed = true
-    private val isImmortal = true
+    private val hometown by lazy { selectHometown() }
+
+    constructor(name: String) : this(name,
+            isImmortal = false,
+            isBlessed = true) {
+        if (name.toLowerCase() == "kar") {
+            healthPoints = 40
+        }
+    }
+
+    init {
+        require(healthPoints > 0) { "healthPoints must be greater than 0."}
+        require(name.isNotBlank()) { "Name must not be blank" }
+    }
 
     fun castFireball(numFireballs: Int = 2) =
             println("A glass of Fireball springs into existence. (x$numFireballs)")
@@ -31,4 +47,10 @@ class Player {
                 in 15..74 -> "looks pretty hurt!"
                 else -> "is in awful condition!"
             }
+
+    private fun selectHometown() = File("data/towns.txt")
+                .readText()
+                .split("\n")
+                .shuffled()
+                .first()
 }
