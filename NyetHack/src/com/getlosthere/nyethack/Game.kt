@@ -8,11 +8,16 @@ fun main(args: Array<String>) {
 
     val player = Player("madigral", healthPoints = 50, isBlessed = true, isImmortal = false)
 
-    // player Status
-    printPlayerStatus(player)
-
     // player.castFireball(5)
     player.castFireball()
+
+//    var currentRoom = Room("Foyer")
+    var currentRoom = TownSquare()
+    println(currentRoom.description())
+    println(currentRoom.load())
+
+    // player Status
+    printPlayerStatus(player)
 }
 
 private fun printPlayerStatus(player: Player) {
