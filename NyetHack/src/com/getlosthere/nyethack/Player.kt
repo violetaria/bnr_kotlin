@@ -13,6 +13,7 @@ class Player (_name: String,
         }
 
     private val hometown by lazy { selectHometown() }
+    var currentPosition = Coordinate(0, 0)
 
     constructor(name: String) : this(name,
             isImmortal = false,
