@@ -96,6 +96,29 @@ object Game {
         println("${player.name} ${player.formatHealthStatus()}")
     }
 
+    private fun fight() = currentRoom.monster?.let {
+        while (player.healthPoints > 0 && it.healthPoints > 0) {
+            Thread.sleep(1000)
+            slay(it)
+        }
+
+        "Combat complete."
+    } ?: "There's nothing to here to fight."
+
+    private fun slay(monster: Monster) {
+        println("${monster.name} did ${monster.attack(player)} damage!")
+        println("${player.name} did ${player.attack(monster)} damage!")
+
+        if (player.healthPoints <= 0) {
+            println(">>>>> you have been defeated! Thanks for playing <<<<<")
+            exitProcess(0)
+        }
+        if (monster.healthPoints <= 0) {
+            println(">>>>> ${monster.name} has been defeated! <<<<<")
+            currentRoom.monster = null
+        }
+    }
+
     private class GameInput(arg: String?) {
         private val input = arg ?: ""
         val command = input.split(" ")[0]
@@ -107,6 +130,7 @@ object Game {
             "move" -> move(argument)
             "map" -> map()
             "ring" -> ringBell()
+            "fight" -> fight()
             "quit" -> endGame()
             else -> commandNotFound()
         }

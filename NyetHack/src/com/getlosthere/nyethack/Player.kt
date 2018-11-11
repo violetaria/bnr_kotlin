@@ -3,9 +3,9 @@ package com.getlosthere.nyethack
 import java.io.File
 
 class Player (_name: String,
-              var healthPoints: Int = 100,
+              override var healthPoints: Int = 100,
               val isBlessed: Boolean,
-              private val isImmortal: Boolean) {
+              private val isImmortal: Boolean) : Fightable {
     var name = _name
         get() = "${field.capitalize()} of $hometown"
         private set(value) {
@@ -14,6 +14,8 @@ class Player (_name: String,
 
     private val hometown by lazy { selectHometown() }
     var currentPosition = Coordinate(0, 0)
+    override val diceSides = 6
+    override val diceCount = 3
 
     constructor(name: String) : this(name,
             isImmortal = false,
@@ -48,6 +50,18 @@ class Player (_name: String,
                 in 15..74 -> "looks pretty hurt!"
                 else -> "is in awful condition!"
             }
+
+
+    override fun attack(opponent: Fightable): Int {
+        val damageDealt = if (isBlessed) {
+            damageRole + 2
+        } else {
+            damageRole
+        }
+
+        opponent.healthPoints -= damageDealt
+        return damageDealt
+    }
 
     private fun selectHometown() = File("data/towns.txt")
                 .readText()
