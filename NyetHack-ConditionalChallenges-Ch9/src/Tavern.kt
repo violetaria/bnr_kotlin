@@ -17,6 +17,8 @@ val menuList = File("data/tavern-menu-items.txt")
 
 val uniquePatrons = mutableSetOf<String>()
 
+val patronGold = mapOf("Eli" to 10.5, "Mordoc" to 8.0, "Sophie" to 5.5)
+
 var caskGallonsTotal: Double = 5.0
 const val PINT = 0.125
 
@@ -57,6 +59,8 @@ fun main(args: Array<String>) {
 //        println("Good evening, $patron - you're #${index + 1} in line.")
 //        placeOrder(patron, menuList.shuffled().first())
 //    }
+
+    println(patronGold)
 
     var orders = 0
     while(orders <= 9) {
