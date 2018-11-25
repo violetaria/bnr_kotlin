@@ -11,8 +11,15 @@ val menuList = File("data/tavern-menu-items.txt")
         .readText()
         .split("\n")
 
-val uniquePatrons = mutableSetOf<String>()
-val patronGold = mutableMapOf<String, Double>()
+val uniquePatrons: MutableSet<String> = generateSequence {
+    val first = patronList.random()
+    val last = lastNames.random()
+    "$first $last" }
+        .distinct()
+        .take(9)
+        .toMutableSet()
+
+val patronGold: MutableMap<String, Double> = uniquePatrons.map{it to 6.0}.toMap(mutableMapOf())
 
 fun main(args: Array<String>) {
     if (patronList.contains("Eli")) {
@@ -25,17 +32,6 @@ fun main(args: Array<String>) {
         println("The tavern master says: Yea, they're seated by the stew kettle.")
     } else {
         println("The tavern master says: Nay, they departed hours ago.")
-    }
-
-    (0..9).forEach {
-        val first = patronList.random()
-        val last = lastNames.random()
-        val name = "$first $last"
-        uniquePatrons.add(name)
-    }
-
-    uniquePatrons.forEach { patron ->
-        patronGold[patron] = 6.0
     }
 
     var orders = 0
