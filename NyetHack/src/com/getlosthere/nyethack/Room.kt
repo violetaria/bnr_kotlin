@@ -13,3 +13,9 @@ open class Room (val name: String){
             "Danger level: $dangerLevel\n" +
             "Creature: ${monster?.description ?: "none."}"
 }
+
+fun Room.configurePitGoblin(block: Room.(Goblin) -> Goblin): Room {
+    val goblin = block(Goblin("Pit Goblin", description = "An Evil Pit Goblin"))
+    monster = goblin
+    return this
+}

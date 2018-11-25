@@ -1,5 +1,6 @@
 package com.getlosthere.nyethack
 
+import com.getlosthere.nyethack.extensions.random
 import java.io.File
 
 const val TAVERN_NAME = "Jojo's Drinks and Dregs"
@@ -27,8 +28,8 @@ fun main(args: Array<String>) {
     }
 
     (0..9).forEach {
-        val first = patronList.shuffled().first()
-        val last = lastNames.shuffled().first()
+        val first = patronList.random()
+        val last = lastNames.random()
         val name = "$first $last"
         uniquePatrons.add(name)
     }
@@ -39,8 +40,8 @@ fun main(args: Array<String>) {
 
     var orders = 0
     while(orders <= 9) {
-        placeOrder(uniquePatrons.shuffled().first(),
-                menuList.shuffled().first())
+        placeOrder(uniquePatrons.random(),
+                menuList.random())
         orders++
     }
 
@@ -59,7 +60,7 @@ fun placeOrder(patronName: String, menuData: String) {
         val message = "$patronName buys a $name ($type) for $price."
         println(message)
         val phrase = if (name.equals("Dragon's Breath", true)) {
-            "$patronName exclaims: ${toDragonSpeak("Ah, delicious $name!")}"
+            "$patronName exclaims: ${"Ah, delicious $name!".toDragonSpeak()}"
         } else {
             "$patronName says: Thanks for the $name."
         }
@@ -70,8 +71,8 @@ fun placeOrder(patronName: String, menuData: String) {
     }
 }
 
-fun toDragonSpeak(phrase: String) =
-    phrase.replace(Regex("[aeiou]", RegexOption.IGNORE_CASE)) {
+private fun String.toDragonSpeak() =
+    this.replace(Regex("[aeiou]", RegexOption.IGNORE_CASE)) {
         when(it.value.toLowerCase()) {
             "a" -> "4"
             "e" -> "3"

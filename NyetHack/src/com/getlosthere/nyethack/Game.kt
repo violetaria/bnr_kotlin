@@ -66,8 +66,6 @@ object Game {
         "There is no bell."
     }
 
-
-
     private fun endGame() :String {
         isGameInProgress = false
         return "Game over"
